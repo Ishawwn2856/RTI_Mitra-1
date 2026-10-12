@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RTI Mitra - Public Information Assistant</title>
+<meta name="description" content="Draft RTI applications, learn your rights and track your requests.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0f1c3f; --navy:#16306b; --blue:#2a5bd7; --saffron:#f28a1d; --saffron-soft:#fff1de;
+  --green:#12804a; --green-soft:#e2f5ea; --paper:#f6f8fc; --white:#fff; --line:#d9e0ee; --muted:#52607f;
+  --display:'Bricolage Grotesque','Trebuchet MS',Arial,sans-serif;
+  --body:'Public Sans','Segoe UI',Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;font-family:var(--body);background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);line-height:1.1;margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--saffron);outline-offset:3px;border-radius:4px}
+
+/* Header */
+header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar{max-width:1120px;margin:auto;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:22px;text-decoration:none}
+.logo i{width:34px;height:34px;border-radius:9px;background:var(--ink);display:grid;place-items:center;font-style:normal;font-size:18px;border-bottom:4px solid var(--saffron)}
+nav{display:flex;gap:6px}
+nav a{text-decoration:none;font-weight:500;font-size:15px;padding:8px 14px;border-radius:8px;color:var(--muted)}
+nav a:hover{background:var(--paper);color:var(--ink)}
+
+/* Buttons */
+.btn{display:inline-block;font:600 16px var(--body);padding:13px 22px;border-radius:10px;border:2px solid transparent;cursor:pointer;text-decoration:none;transition:transform .15s,background .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn-main{background:var(--saffron);color:var(--ink)}
+.btn-main:hover{background:#ffa03f}
+.btn-ghost{border-color:#ffffff55;color:#fff}
+.btn-ghost:hover{background:#ffffff18}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-line{border-color:var(--ink);color:var(--ink);background:transparent}
+.btn-sm{padding:9px 16px;font-size:15px}
+
+/* Hero */
+.hero{background:var(--ink);color:#fff;overflow:hidden;background-image:radial-gradient(circle at 85% 20%,#2a5bd740,transparent 45%)}
+.hero-in{max-width:1120px;margin:auto;padding:72px 24px 88px;display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.hero h1{font-size:clamp(38px,5.6vw,64px);font-weight:800;letter-spacing:-.02em}
+.hero p{font-size:18px;color:#cdd6ee;max-width:46ch;margin:22px 0 30px}
+.hero .actions{display:flex;gap:12px;flex-wrap:wrap}
+.trust{display:flex;gap:22px;flex-wrap:wrap;margin-top:34px;font-size:14px;color:#aab6d6}
+.trust span::before{content:"✓ ";color:var(--saffron);font-weight:700}
+
+/* Paper letter */
+.letter{background:#fff;color:#1d2540;border-radius:6px;padding:30px 30px 26px;transform:rotate(1.8deg);box-shadow:0 30px 60px #00000060;font-size:14px;line-height:1.7;position:relative;min-height:380px}
+.letter::before{content:"";position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,var(--saffron) 33%,#fff 33% 66%,var(--green) 66%);border-radius:6px 6px 0 0;box-shadow:inset 0 -1px 0 #0001}
+.letter b{font-family:var(--display);font-size:15px}
+.letter .stamp{position:absolute;right:20px;top:24px;border:2px solid var(--green);color:var(--green);font:700 11px var(--body);padding:3px 9px;border-radius:5px;transform:rotate(-6deg)}
+#typed{white-space:pre-wrap;display:block;margin-top:14px}
+#typed.typing::after{content:"";display:inline-block;width:2px;height:1em;background:var(--blue);vertical-align:-2px;margin-left:2px;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* Sections */
+.wrap{max-width:1120px;margin:auto;padding:0 24px}
+section{padding:84px 0}
+.head{max-width:620px;margin-bottom:38px}
+.head h2{font-size:clamp(30px,4vw,44px);font-weight:800;letter-spacing:-.015em}
+.head p{color:var(--muted);font-size:17px;margin:12px 0 0}
+
+/* Features */
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:20px}
+.tile{border-radius:20px;padding:30px;display:flex;flex-direction:column;align-items:flex-start;gap:12px;border:1px solid var(--line);background:#fff}
+.tile h3{font-size:24px}
+.tile p{margin:0;color:var(--muted);max-width:44ch}
+.tile .ico{font-size:30px;width:56px;height:56px;border-radius:14px;display:grid;place-items:center;background:var(--paper)}
+.tile .btn{margin-top:auto}
+.t-draft{grid-column:span 7;background:var(--navy);color:#fff;border:0;min-height:300px}
+.t-draft p{color:#cdd6ee}.t-draft .ico{background:#ffffff1c}
+.t-help{grid-column:span 5;background:var(--saffron-soft);border-color:#f5d4a8}
+.t-track{grid-column:span 5}
+.t-rights{grid-column:span 7;background:var(--green-soft);border-color:#b8e2c8}
+.t-rights .ico{background:#fff}
+
+/* Steps */
+.steps-bg{background:#fff;border-block:1px solid var(--line)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;list-style:none;margin:0;padding:0;counter-reset:s}
+.steps li{counter-increment:s;position:relative;padding-top:58px}
+.steps li::before{content:counter(s);position:absolute;top:0;left:0;width:42px;height:42px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font:800 18px var(--display)}
+.steps li::after{content:"";position:absolute;top:21px;left:54px;right:-12px;height:2px;background:repeating-linear-gradient(90deg,var(--line) 0 6px,transparent 6px 12px)}
+.steps li:last-child::after{display:none}
+.steps h3{font-size:19px;margin-bottom:6px}
+.steps p{margin:0;color:var(--muted);font-size:15px}
+
+/* About */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.about p{color:var(--muted);font-size:17px;margin:0 0 14px}
+.note{border-left:4px solid var(--saffron);background:#fff;padding:16px 20px;border-radius:0 12px 12px 0;font-size:15px;color:var(--muted)}
+
+footer{background:var(--ink);color:#aab6d6;text-align:center;padding:34px 24px;font-size:15px}
+footer strong{color:#fff;font-family:var(--display);font-size:18px}
+footer p{margin:4px 0}
+
+/* Dialogs */
+dialog{border:0;border-radius:20px;padding:0;width:min(640px,calc(100% - 28px));max-height:90vh;color:var(--ink);font-family:var(--body);box-shadow:0 30px 80px #0008}
+dialog::backdrop{background:#0f1c3fb0;backdrop-filter:blur(3px)}
+.d-head{display:flex;justify-content:space-between;align-items:center;padding:20px 26px;border-bottom:1px solid var(--line);position:sticky;top:0;background:#fff;z-index:1}
+.d-head h3{font-size:24px}
+.x{border:0;background:var(--paper);width:38px;height:38px;border-radius:50%;font-size:20px;cursor:pointer}
+.d-body{padding:22px 26px 28px}
+label{display:block;font-weight:600;font-size:14px;margin:14px 0 6px}
+input,textarea,select{width:100%;font:16px var(--body);padding:11px 13px;border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
+input:focus,textarea:focus,select:focus{border-color:var(--blue);outline:3px solid #2a5bd733}
+textarea{min-height:110px;resize:vertical}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.out{margin-top:20px;display:none}
+.out textarea{min-height:260px;font-size:14px;line-height:1.6;background:var(--paper)}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+details{border:1px solid var(--line);border-radius:12px;padding:0 16px;margin-top:10px}
+summary{font-weight:600;padding:14px 0;cursor:pointer}
+details p{margin:0 0 14px;color:var(--muted);font-size:15px}
+details[open]{background:var(--paper)}
+.app{display:flex;justify-content:space-between;gap:12px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:10px}
+.app small{color:var(--muted);display:block}
+.badge{font:600 12px var(--body);padding:3px 10px;border-radius:99px;background:var(--saffron-soft);color:#9a5200;display:inline-block;margin-top:4px}
+.badge.ok{background:var(--green-soft);color:var(--green)}
+.badge.late{background:#fde4e4;color:#b42318}
+.empty{color:var(--muted);text-align:center;padding:22px 0 4px}
+
+@media(max-width:860px){
+  .hero-in,.about{grid-template-columns:1fr}
+  .hero-in{padding:48px 24px 64px;gap:40px}
+  .letter{transform:none}
+  .t-draft,.t-help,.t-track,.t-rights{grid-column:span 12}
+  .steps{grid-template-columns:1fr 1fr}.steps li::after{display:none}
+  section{padding:60px 0}
+}
+@media(max-width:560px){nav a:nth-child(n+3){display:none}.row,.steps{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* RTI Mitra — citizen workspace */
+:root{--ink:#163d37;--navy:#164e43;--blue:#137964;--saffron:#f0bb70;--saffron-soft:#fff3e1;--green:#227a59;--green-soft:#e9f3e9;--paper:#f8f9f5;--line:#dfe6df;--muted:#66766e}
+body{background:var(--paper)}
+.bar,.wrap,.hero-in{max-width:1200px}.bar{padding:18px 28px}.logo{letter-spacing:-.7px}.logo i{background:#145e4e;border:0;color:white;width:40px;height:40px;border-radius:12px;font-size:24px}.logo em{font-style:normal;color:#338b70}nav a{font-size:13px;padding:9px 12px}nav a:hover,nav a.active{background:#e8f1e9;color:var(--ink)}.nav-cta{margin-left:15px;background:var(--ink);color:white;border:0;border-radius:8px;padding:11px 17px;font-weight:600;cursor:pointer}.menu{display:none}.eyebrow{text-transform:uppercase;letter-spacing:2px;font-weight:700;font-size:11px;color:#5f806f;margin-bottom:18px}.eyebrow:before{content:'';display:inline-block;width:7px;height:7px;border-radius:50%;background:#349979;margin-right:9px}.hero{background:#f4f6ed;color:var(--ink);background-image:radial-gradient(ellipse at 80% 50%,#dce8d5 0,transparent 55%);border-bottom:1px solid var(--line)}.hero-in{padding:76px 28px 80px;gap:72px}.hero h1{font-size:clamp(44px,5.4vw,69px);letter-spacing:-3px;line-height:1.06}.hero h1 span{color:#3b8a6b}.hero p{font-size:16px;line-height:1.8;color:var(--muted);margin:25px 0;max-width:44ch}.btn{border-radius:9px;font-size:14px;padding:13px 20px}.btn-main{background:#175e4e;color:white;box-shadow:0 4px 10px #163d3714}.btn-main:hover{background:#237b65}.btn-ghost{color:var(--ink);border-color:#ccd7c9;background:#ffffff70}.btn-ghost:hover{background:#fff}.trust{gap:16px;font-size:11px;margin-top:26px;color:#687b6c}.trust span::before{color:#398764}.hero-stage{position:relative;padding:0 6px 23px}.preview-shell{background:#fff;border:1px solid #d2ddcd;border-radius:17px;box-shadow:0 24px 60px #25452b12;overflow:hidden;transform:rotate(1deg)}.preview-top{display:flex;align-items:center;justify-content:space-between;padding:15px 19px;border-bottom:1px solid var(--line);font-size:11px;color:var(--muted);background:#fafcf9}.preview-top b{font-size:12px;color:var(--ink)}.window-dots{letter-spacing:3px;color:#c7d5c6}.letter{border:0;transform:none;border-radius:0;padding:28px;min-height:370px;box-shadow:none;font-size:12px;background:#fff;color:#53665a}.letter::before{display:none}.letter b{display:block;color:var(--ink);font-size:17px;margin:17px 0 10px}.letter .stamp{position:static;display:inline-block;transform:none;border:0;background:#edf5e9;border-radius:4px;font-size:9px;letter-spacing:1px;padding:4px 8px}.preview-bottom{display:flex;justify-content:space-between;align-items:center;padding:14px 21px;border-top:1px solid var(--line);font-size:10px;color:var(--muted)}.preview-bottom span:last-child{color:#237b65}.float-note{position:absolute;bottom:0;left:-22px;border:1px solid #dce4d7;border-radius:12px;background:#fff;padding:15px 20px;box-shadow:0 10px 30px #183b3210;font-size:12px;display:flex;gap:12px;align-items:center}.float-note b{display:block;font-size:12px}.float-note small{color:var(--muted)}.check-disc{background:#e9f2dd;color:#367255;border-radius:50%;width:32px;height:32px;display:grid;place-items:center}.quick-strip{display:grid;grid-template-columns:repeat(3,1fr);background:#fff;border-bottom:1px solid var(--line);padding:24px max(24px,calc((100% - 1144px)/2));gap:35px}.quick-strip>div{display:flex;align-items:center;gap:14px;font-size:12px;color:var(--muted)}.quick-strip b{display:block;color:var(--ink);font-size:14px}.mini-icon{color:#387a61;font-size:23px}.head{max-width:660px;margin-bottom:32px}.head h2{font-size:clamp(29px,3.5vw,41px);letter-spacing:-1.5px}.head p{font-size:15px}.section-top{display:flex;justify-content:space-between;align-items:end;gap:25px}.section-top>a{font-size:13px;margin-bottom:38px;color:#32785d}.grid{grid-template-columns:repeat(4,1fr);gap:18px}.tile,.t-draft,.t-help,.t-track,.t-rights{grid-column:auto;min-height:300px;border:1px solid var(--line);border-radius:14px;padding:25px 23px;gap:17px;background:#fff;color:var(--ink);transition:transform .2s,box-shadow .2s}.tile:hover{transform:translateY(-5px);box-shadow:0 15px 35px #25452b0c}.t-draft{background:#194f43;color:#fff;border-color:#194f43}.tile h3{font-size:21px;letter-spacing:-.5px}.tile p{font-size:13px;line-height:1.8;color:var(--muted)}.t-draft p{color:#cbded4}.tile .ico{width:44px;height:44px;font-size:23px;border-radius:12px;background:#edf3e9;color:#3b795c}.t-draft .ico{background:#ffffff15;color:#d3e6d6}.tile .btn{font-size:12px;padding:9px 0;background:none;color:var(--ink);border:0;box-shadow:none;text-align:left}.tile .btn:after{content:' ↗';margin-left:8px}.t-draft .btn{color:#e5c99a}.steps-bg{background:#eff3e9}.steps li::before{border-radius:12px;background:#dfe9d7;color:#457454;font-size:16px;width:40px;height:40px}.steps li::after{background:#d5dfcc;height:1px}.steps h3{font-size:17px}.steps p{font-size:13px}.about{gap:70px}.about p{font-size:15px}.note{font-size:12px;background:#edf2e8;border:0;border-radius:10px}.cta-band{background:#164e43;color:#fff;border-radius:18px;padding:38px 44px;display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:48px}.cta-band h3{font-size:28px;letter-spacing:-1px}.cta-band p{color:#c8dccf;font-size:14px;margin:9px 0 0}.cta-band .btn{background:#ecc690;color:#244232;white-space:nowrap}footer{background:#f0f3ec;color:var(--muted);text-align:left;border-top:1px solid var(--line);font-size:12px}footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:24px}footer strong{color:var(--ink)}.d-head h3{font-size:21px}.d-head{background:#f8faf5}dialog{border-radius:16px;max-height:88vh}dialog::backdrop{background:#132e26aa}.hint{font-size:12px;color:var(--muted);margin:0 0 18px}.template-row{display:flex;gap:8px;flex-wrap:wrap}.template-row button{border:1px solid var(--line);background:#f2f6ed;color:var(--ink);border-radius:20px;padding:7px 12px;font-size:12px;cursor:pointer}.app{align-items:start;flex-wrap:wrap}.app-actions{display:flex;gap:6px;flex-wrap:wrap}.app-actions button{font-size:11px;padding:7px 9px}.tracker-stats{display:flex;gap:12px;margin:24px 0 12px}.tracker-stats span{flex:1;background:#f1f5eb;border-radius:10px;padding:12px;font-size:11px}.tracker-stats b{display:block;font-size:24px}.skip{position:absolute;left:10px;top:-100px;background:#fff;padding:10px;z-index:99}.skip:focus{top:10px}#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#183e33;color:white;padding:12px 22px;border-radius:10px;z-index:100;font-size:13px;box-shadow:0 8px 25px #0002}#toast:empty{display:none}.badge{white-space:normal}a,button{-webkit-tap-highlight-color:transparent}
+@media(max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)}.hero-in{gap:35px}.hero h1{font-size:52px}.trust{gap:9px}.nav-cta{display:none}}
+@media(max-width:860px){.hero-in{grid-template-columns:1fr;padding-top:50px}.hero-stage{max-width:530px;width:100%;margin:auto}.hero h1{max-width:600px}.hero p{max-width:560px}.about{gap:25px}.quick-strip{gap:15px}.float-note{left:0}.cta-band{padding:30px}.hero-stage{margin-top:5px}}
+@media(max-width:560px){.bar{padding:13px 20px;flex-wrap:wrap}.logo{font-size:21px}.menu{display:block;border:1px solid var(--line);background:#fff;border-radius:7px;padding:8px 11px;color:var(--ink)}nav{display:none;width:100%;flex-wrap:wrap}nav.open{display:flex}nav a:nth-child(n){display:block}nav a{font-size:12px}.hero-in{padding:40px 22px 45px}.hero h1{font-size:47px;letter-spacing:-2px}.hero p{font-size:15px}.trust{font-size:10px;gap:10px}.quick-strip{grid-template-columns:1fr;padding:22px;gap:17px}.grid{grid-template-columns:1fr}.tile{min-height:235px}.section-top{display:block}.section-top>a{display:none}.wrap{padding-inline:22px}.head h2{font-size:32px}.steps{gap:27px}.steps li{padding-top:0;padding-left:57px;min-height:75px}.cta-band{display:block}.cta-band .btn{margin-top:23px}footer .wrap{display:block}footer .wrap>div+div{margin-top:17px}.letter{padding:22px;min-height:365px}.d-body{padding:18px}.d-head{padding:16px 18px}.btns .btn{flex:1}.row{gap:0}.about .head{margin-bottom:0}}
+</style>
+</head>
+<body>
+<a class="skip" href="#features">Skip to tools</a>
+
+<header>
+  <div class="bar">
+    <a class="logo" href="#home"><i aria-hidden="true">⌘</i> RTI <em>Mitra</em></a>
+    <button class="menu" aria-expanded="false" aria-controls="mainNav">Menu ☰</button><nav id="mainNav" aria-label="Main navigation">
+      <a href="#home">Home</a>
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#about">About</a>
+    </nav><button class="nav-cta" data-open="draft">Create a request ↗</button>
+  </div>
+</header>
+
+<main>
+<div class="hero" id="home">
+  <div class="hero-in">
+    <div>
+      <div class="eyebrow">Your public information companion</div><h1>Your right to know.<br><span>Made simple.</span></h1>
+      <p>Turn questions into clear requests. Draft your RTI application, understand your rights, and follow every step with confidence.</p>
+      <div class="actions">
+        <button class="btn btn-main" data-open="draft">Draft an application ↗</button>
+        <a class="btn btn-ghost" href="#how">See how it works</a>
+      </div>
+      <div class="trust">
+        <span>Free to use</span><span>Built on the RTI Act, 2005</span><span>Saved on your device</span>
+      </div>
+    </div>
+
+    <div class="hero-stage"><div class="preview-shell"><div class="preview-top"><b>▤ &nbsp; Your application workspace</b><span class="window-dots">●●●</span></div><div class="letter" aria-label="Sample RTI application"><span class="stamp">ILLUSTRATIVE DRAFT</span><b>A clearer request. A better start.</b><span id="typed" class="typing"></span></div><div class="preview-bottom"><span>RTI ACT, 2005 · SECTION 6(1)</span><span>✓ Ready for your review</span></div></div><div class="float-note"><span class="check-disc">✓</span><div><b>Every question is a starting point.</b><small>We help you take the next step.</small></div></div></div>
+  </div>
+</div>
+
+<div class="quick-strip"><div><span class="mini-icon">▤</span><div><b>Clear, structured drafts</b>Go from a question to an application</div></div><div><span class="mini-icon">◷</span><div><b>Your requests, organised</b>Keep dates and responses in one place</div></div><div><span class="mini-icon">◇</span><div><b>Made for every citizen</b>Simple language. No account needed.</div></div></div><section id="features">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">A little guidance. A lot more clarity.</div><h2>One place. Every step covered.</h2>
+      <p>Practical tools to help you ask, prepare, track, and understand.</p>
+    </div>
+
+    <div class="grid">
+      <div class="tile t-draft">
+        <div class="ico">▤</div>
+        <h3>RTI Draft Generator</h3>
+        <p>Answer a few simple questions and get a properly worded application, ready to copy, edit and send.</p>
+        <button class="btn btn-main" data-open="draft">Start a draft</button>
+      </div>
+
+      <div class="tile t-help">
+        <div class="ico">♧</div>
+        <h3>RTI Help Assistant</h3>
+        <p>Plain-language answers on fees, deadlines, appeals and who to write to.</p>
+        <button class="btn btn-dark" data-open="help">Ask a question</button>
+      </div>
+
+      <div class="tile t-track">
+        <div class="ico">◷</div>
+        <h3>Application Tracker</h3>
+        <p>Save your application number and submission date. See an estimated response date at a glance.</p>
+        <button class="btn btn-line" data-open="track">Track an application</button>
+      </div>
+
+      <div class="tile t-rights">
+        <div class="ico">◇</div>
+        <h3>Know Your Rights</h3>
+        <p>Read the basics of the Right to Information Act and find official guidance from the government.</p>
+        <a class="btn btn-dark" href="https://rti.dopt.gov.in/" target="_blank" rel="noopener">Visit the official RTI site</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="steps-bg" id="how">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">The path to public information</div><h2>Small steps. Informed citizens.</h2>
+      <p>From first draft to final appeal, in four steps.</p>
+    </div>
+    <ol class="steps">
+      <li><h3>Draft your request</h3><p>Say clearly what information you want, and from which department.</p></li>
+      <li><h3>Submit it</h3><p>Send it to the Public Information Officer with the application fee, by post or online.</p></li>
+      <li><h3>Wait up to 30 days</h3><p>A reply is normally due within 30 days of receipt. Some cases have different timelines.</p></li>
+      <li><h3>Appeal if needed</h3><p>No reply, or not satisfied? Check the first-appeal process and applicable deadlines.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about">
+    <div class="head" style="margin:0">
+      <div class="eyebrow">Built for transparency</div><h2>Information empowers.<br>Clarity comes first.</h2>
+    </div>
+    <div>
+      <p>RTI Mitra is a student hackathon project built to make public information procedures easier to understand.</p>
+      <p>Our goal is to help citizens prepare clearer requests and follow the correct submission process.</p>
+      <div class="note">RTI Mitra gives general guidance, not legal advice. Fees and rules differ between the Centre and each state, so always check with the department you are writing to.</div>
+    </div>
+  </div>
+</section>
+<div class="wrap" style="padding-bottom:64px"><div class="cta-band"><div><h3>Your next question could make a difference.</h3><p>Start with a clear request. Take the first step today.</p></div><button class="btn" data-open="draft">Create your RTI draft ↗</button></div></div></main>
+
+<footer><div class="wrap"><div>
+  <p><strong>RTI Mitra</strong> | Student Hackathon Project</p>
+  <p>Technology for informed citizens.</p>
+</div><div>Independent student project · Not a government portal<br>Draft locally. Submit through the appropriate authority.</div></div><div class="wrap" style="display:block;padding-top:24px;font-size:12px;max-width:900px"><p style="margin:10px 0 6px;font-weight:600;color:#163d37">&copy; 2026 RTI Mitra. All rights reserved.</p>
+<p style="margin:0 0 8px">Rights in eligible original content and code are reserved under the Copyright Act, 1957 (India). Reproduction or redistribution requires permission from the relevant rights holder, except as permitted by law. Third-party materials remain subject to their respective rights and licences.</p>
+<p style="margin:0">This notice does not imply Government of India endorsement or copyright registration.</p>
+</div></footer>
+
+<!-- Draft generator -->
+<dialog id="draft">
+  <div class="d-head"><h3>RTI Draft Generator</h3><form method="dialog"><button class="x" aria-label="Close">✕</button></form></div>
+  <div class="d-body">
+    <p class="hint">Start from a template or write your own request. Review the draft before submitting it to the authority.</p><div class="template-row"><button type="button" data-template="roads">Road works</button><button type="button" data-template="water">Water supply</button><button type="button" data-template="funds">Public expenditure</button></div><form id="draftForm">
+      <label for="dName">Your full name</label>
+      <input id="dName" required autocomplete="name">
+      <label for="dAddr">Your address</label>
+      <input id="dAddr" required autocomplete="street-address">
+      <label for="dDept">Department or public authority</label>
+      <input id="dDept" required placeholder="e.g. Municipal Corporation, Water Works Department">
+      <div class="row">
+        <div><label for="dSub">Subject</label><input id="dSub" required placeholder="e.g. Road repair works"></div>
+        <div><label for="dPer">Period (optional)</label><input id="dPer" placeholder="e.g. Jan 2025 to Dec 2025"></div>
+      </div>
+      <label for="dInfo">What information do you want?</label>
+      <textarea id="dInfo" required placeholder="List each question on its own line. Ask for documents, dates, amounts or decisions."></textarea>
+      <div class="btns"><button class="btn btn-dark">Create my draft</button></div>
+    </form>
+    <div class="out" id="draftOut">
+      <label for="draftText">Your draft (you can edit it)</label>
+      <textarea id="draftText"></textarea>
+      <div class="btns">
+        <button class="btn btn-main btn-sm" id="copyBtn" type="button">Copy draft</button>
+        <button class="btn btn-line btn-sm" id="dlBtn" type="button">Download .txt</button>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<!-- Help assistant -->
+<dialog id="help">
+  <div class="d-head"><h3>RTI Help Assistant</h3><form method="dialog"><button class="x" aria-label="Close">✕</button></form></div>
+  <div class="d-body">
+    <label for="faqSearch" style="margin-top:0">Search common questions</label>
+    <input id="faqSearch" type="search" placeholder="Try: fee, appeal, deadline">
+    <div id="faqList"></div><p class="hint" style="margin-top:20px">Source: <a href="https://rti.dopt.gov.in/RTICorner/Guideonrti.pdf" target="_blank" rel="noopener">DoPT guide to the RTI Act ↗</a></p>
+  </div>
+</dialog>
+
+<!-- Tracker -->
+<dialog id="track">
+  <div class="d-head"><h3>Application Tracker</h3><form method="dialog"><button class="x" aria-label="Close">✕</button></form></div>
+  <div class="d-body">
+    <p class="hint">A personal tracker saved in this browser. It does not fetch government status. Dates are estimates; transfers, additional fees, and other cases can change the deadline.</p><form id="trackForm">
+      <div class="row">
+        <div><label for="tNo" style="margin-top:0">Application number</label><input id="tNo" required></div>
+        <div><label for="tDate" style="margin-top:0">Date received by authority</label><input id="tDate" type="date" required></div>
+      </div>
+      <label for="tDept">Department</label>
+      <input id="tDept" required>
+      <div class="btns"><button class="btn btn-dark">Save application</button></div>
+    </form>
+    <div id="trackerStats" class="tracker-stats"></div><div id="appList"></div>
+  </div>
+</dialog>
+
+<div id="toast" role="status" aria-live="polite"></div><script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* Open and close dialogs */
+document.querySelectorAll('[data-open]').forEach(b => b.addEventListener('click', () => $('#' + b.dataset.open).showModal()));
+document.querySelectorAll('dialog').forEach(d => d.addEventListener('click', e => { if (e.target === d) d.close(); }));
+
+/* Hero letter typing (plays once) */
+(function () {
+  const el = $('#typed');
+  const text = "To,\nThe Public Information Officer,\nMunicipal Corporation\n\nUnder Section 6(1) of the RTI Act, 2005, please provide:\n\n1. Copies of work orders for road repairs in Ward 12 during 2025.\n2. The amount spent on each work.\n3. Names of the contractors appointed.\n\nYours faithfully,\nA. Citizen";
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { el.textContent = text; el.classList.remove('typing'); return; }
+  let i = 0;
+  const t = setInterval(() => {
+    el.textContent = text.slice(0, ++i);
+    if (i >= text.length) { clearInterval(t); el.classList.remove('typing'); }
+  }, 22);
+})();
+
+/* Draft generator */
+$('#draftForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const v = id => $('#' + id).value.trim();
+  const today = new Date().toLocaleDateString('en-IN', {day:'numeric', month:'long', year:'numeric'});
+  const period = v('dPer') ? ' for the period ' + v('dPer') : '';
+  const draft =
+`To,
+The Public Information Officer,
+${v('dDept')}
+
+Date: ${today}
+
+Subject: Request for information under the Right to Information Act, 2005 - ${v('dSub')}
+
+Sir/Madam,
+
+Under Section 6(1) of the Right to Information Act, 2005, I request the following information${period}:
+
+${v('dInfo')}
+
+[Add your payment details or applicable fee-exemption details before submission.] If any part of this request belongs to another public authority, please transfer it under Section 6(3) of the Act and inform me.
+
+Please send the information to the address below.
+
+Yours faithfully,
+${v('dName')}
+${v('dAddr')}`;
+  $('#draftText').value = draft;
+  $('#draftOut').style.display = 'block';
+  $('#draftOut').scrollIntoView({behavior:'smooth', block:'nearest'});
+});
+$('#copyBtn').addEventListener('click', async () => {
+  const ta = $('#draftText');
+  try { await navigator.clipboard.writeText(ta.value); } catch (e) { ta.select(); document.execCommand('copy'); }
+  $('#copyBtn').textContent = 'Copied';
+  setTimeout(() => $('#copyBtn').textContent = 'Copy draft', 1800);
+});
+$('#dlBtn').addEventListener('click', () => {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([$('#draftText').value], {type:'text/plain'}));
+  a.download = 'rti-application.txt';
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+
+/* Help assistant */
+const faqs = [
+  ['Who can file an RTI application?', 'Any citizen of India. You do not need a lawyer.'],
+  ['Do I have to give a reason?', 'No. Section 6(2) says you do not have to give a reason for asking for information.'],
+  ['What does it cost?', 'For central government bodies the application fee is Rs 10. States set their own fees. Applicants below the poverty line are exempt. Photocopies and inspection may cost extra.'],
+  ['Where do I send my application?', 'To the Public Information Officer (PIO) of the department that holds the information. Central ministries also accept applications on the RTI Online portal.'],
+  ['How long until I get a reply?', 'Normally within 30 days of receipt by the authority. Special cases can change the deadline. If the request concerns a person\'s life or liberty, the reply is due within 48 hours.'],
+  ['What if I get no reply or I am not satisfied?', 'A first appeal is normally due within 30 days of receiving the decision or the reply deadline expiring. A second appeal is normally due within 90 days of when the first-appeal decision should have been made or was received. Check official guidance for your situation.']
+];
+function renderFaq(q = '') {
+  const items = faqs.filter(f => (f[0] + f[1]).toLowerCase().includes(q.toLowerCase()));
+  $('#faqList').innerHTML = items.length
+    ? items.map(f => `<details><summary>${esc(f[0])}</summary><p>${esc(f[1])}</p></details>`).join('')
+    : '<p class="empty">No match. Try a word like fee, appeal or deadline.</p>';
+}
+$('#faqSearch').addEventListener('input', e => renderFaq(e.target.value));
+renderFaq();
+
+/* Local application tracker — preserves the original storage key. */
+function notify(message){ $('#toast').textContent=message;clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>$('#toast').textContent='',3500); }
+let apps=[];
+try{const data=JSON.parse(localStorage.getItem('rtiApps')||'[]');if(Array.isArray(data)) apps=data.filter(a=>a&&typeof a.no==='string'&&typeof a.dept==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(a.date));}catch(e){}
+const save=()=>{try{localStorage.setItem('rtiApps',JSON.stringify(apps));return true;}catch(e){notify('Storage is unavailable. Changes will last only while this page is open.');return false;}};
+function daysLeft(a){const [y,m,d]=a.date.split('-').map(Number);const due=Date.UTC(y,m-1,d+30);const now=new Date();return Math.round((due-Date.UTC(now.getFullYear(),now.getMonth(),now.getDate()))/864e5);}
+function renderApps(){
+const pending=apps.filter(a=>!a.done);$('#trackerStats').innerHTML=`<span><b>${apps.length}</b>Total requests</span><span><b>${pending.length}</b>Awaiting reply</span><span><b>${apps.filter(a=>a.done).length}</b>Replies received</span>`;
+$('#appList').innerHTML=apps.length?apps.map((a,i)=>{const left=daysLeft(a);const text=a.done?'Reply received':left<0?`${-left} days past estimated reply date`:left===0?'Estimated reply date: today':`${left} days until estimated reply date`;return `<div class="app"><div><strong>${esc(a.no)}</strong><small>${esc(a.dept)} · Received ${esc(a.date)}</small><span class="badge ${a.done?'ok':left<0?'late':''}">${text}</span></div><div class="app-actions"><button class="btn btn-line" data-done="${i}">${a.done?'Reopen':'Mark replied'}</button><button class="btn btn-line" data-del="${i}" aria-label="Remove ${esc(a.no)}">Remove</button></div></div>`;}).join(''):'<p class="empty">Your requests will appear here.<br><small>Add your first application above to start tracking.</small></p>';
+}
+const now=new Date();$('#tDate').max=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+$('#trackForm').addEventListener('submit',e=>{e.preventDefault();const no=$('#tNo').value.trim(),dept=$('#tDept').value.trim();if(!no||!dept){notify('Enter an application number and department.');return;}if(apps.some(a=>a.no.toLowerCase()===no.toLowerCase()&&a.dept.toLowerCase()===dept.toLowerCase())){notify('That application is already being tracked.');return;}apps.unshift({no,dept,date:$('#tDate').value,done:false});if(save())notify('Application saved in this browser.');renderApps();e.target.reset();});
+$('#appList').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.done!==undefined){apps[+b.dataset.done].done=!apps[+b.dataset.done].done;save();renderApps();}if(b.dataset.del!==undefined&&confirm('Remove this application from your tracker?')){apps.splice(+b.dataset.del,1);save();renderApps();}});
+renderApps();
+const templates={roads:['Road repair records','1. Please provide copies of sanctioned work orders for road repairs in [area/ward].\n2. Please provide expenditure statements for each work.\n3. Please provide copies of completion and inspection reports.'],water:['Water supply records','1. Please provide the recorded water supply schedule for [area].\n2. Please provide copies of water quality test reports.\n3. Please provide records of action taken on complaint [reference number].'],funds:['Public expenditure records','1. Please provide the sanctioned budget for [project/scheme].\n2. Please provide item-wise expenditure statements.\n3. Please provide copies of utilisation certificates.']};
+document.querySelectorAll('[data-template]').forEach(b=>b.addEventListener('click',()=>{if($('#dInfo').value.trim()&&!confirm('Replace your current subject and questions with this template?'))return;const t=templates[b.dataset.template];$('#dSub').value=t[0];$('#dInfo').value=t[1];$('#dInfo').focus();}));
+$('.menu').addEventListener('click',()=>{const open=$('#mainNav').classList.toggle('open');$('.menu').setAttribute('aria-expanded',open);});
+document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>{$('#mainNav').classList.remove('open');$('.menu').setAttribute('aria-expanded','false');}));
+document.querySelectorAll('dialog').forEach(d=>{d.setAttribute('aria-label',d.querySelector('h3').textContent);});
+</script>
+</body>
+</html>
